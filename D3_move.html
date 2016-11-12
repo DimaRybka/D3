@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8"> 
+ <title>D3.js</title>
+</head>
+
+<style>
+
+body{
+  background-color: #c6c9d1;
+}
+
+circle {
+  fill: #c4d2ee;
+  stroke: #939aa7
+  stroke-width: 1px;
+  opacity: .7;
+}
+
+rect{
+  fill: #060606;
+}
+
+div{
+  width: 600px;
+  height: 350px;
+  margin: 0 auto;
+  border: 1px solid white;
+}
+
+
+</style>
+<body>
+<div>
+<script src="http://d3js.org/d3.v3.min.js""></script>
+<script>
+
+var width = 600;
+var height = 350;
+
+var svg = d3.select("div").append("svg")
+  .attr("width", width)
+  .attr("height", height);
+
+  svg.append("rect")
+  .attr("width", width)
+  .attr("height", height)
+  .attr("margin", 100)
+  .on("mousemove", mouseMove);
+
+function mouseMove(){
+
+  var m = d3.mouse(this);
+
+  function getRand(min, max){
+
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  var mx = getRand(1, 60)
+  var my = getRand(1, 60)
+
+  var rand_r = getRand(10,20)
+
+  svg.insert("circle")
+
+  .attr("cx", m[0]+mx)
+  .attr("cy", m[1]+my)
+  .attr("r",  1)
+  .transition()
+  .duration(4000)
+  .ease(Math.sqrt)
+  .style("r", rand_r)
+  .attr("cx", m[0]+mx)
+  .attr("cy", m[1]+my-400)
+  .remove()      
+}
+
+</script>
+</div>
+</body>
+</html>
